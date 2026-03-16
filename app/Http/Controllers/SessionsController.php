@@ -34,9 +34,12 @@ class SessionsController extends Controller
         return redirect()->intended('/')->with('success', 'You are now logged in.');
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
         Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerate();
 
         return redirect('/');
     }
